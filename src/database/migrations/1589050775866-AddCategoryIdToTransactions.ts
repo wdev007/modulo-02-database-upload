@@ -12,7 +12,7 @@ export default class AddCategoryIdToTransactions1589050775866
       'transactions',
       new TableColumn({
         name: 'category_id',
-        type: 'integer',
+        type: 'uuid',
         isNullable: true,
       }),
     );

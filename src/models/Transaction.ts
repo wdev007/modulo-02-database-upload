@@ -6,34 +6,27 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export enum TransactionTypes {
-  INCOME = 'income',
-  OUTCOME = 'outcome',
-}
-
 @Entity('transactions')
 class Transaction {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   title: string;
 
-  @Column({
-    type: 'enum',
-    enum: TransactionTypes,
-  })
-  type: TransactionTypes;
+  @Column()
+  type: 'income' | 'outcome';
 
   @Column('integer')
   value: number;
 
-  @CreateDateColumn()
+  @Column()
   category_id: string;
 
-  @UpdateDateColumn()
+  @CreateDateColumn()
   created_at: Date;
 
+  @UpdateDateColumn()
   updated_at: Date;
 }
 
