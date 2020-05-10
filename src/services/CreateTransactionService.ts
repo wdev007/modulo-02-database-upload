@@ -37,6 +37,17 @@ class CreateTransactionService {
       title: category,
     });
 
+    const transactions = await transactionRepository.find();
+    const { total } = await transactionRepository.getBalance();
+
+    if (!transactions && type === 'outcome') {
+      throw new AppError('Transaction without balance is not possible', 400);
+    }
+
+    if (value > total && type === 'outcome') {
+      throw new AppError('Withdrawal amount greater than the balance', 400);
+    }
+
     const transaction = transactionRepository.create({
       title,
       type,
